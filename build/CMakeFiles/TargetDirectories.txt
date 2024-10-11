@@ -1,0 +1,3 @@
+D:/Work/Projects/raytracer/build/CMakeFiles/raytracer.dir
+D:/Work/Projects/raytracer/build/CMakeFiles/edit_cache.dir
+D:/Work/Projects/raytracer/build/CMakeFiles/rebuild_cache.dir

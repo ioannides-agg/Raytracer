@@ -1,0 +1,8 @@
+[
+{
+  "directory": "D:/Work/Projects/raytracer/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\raytracer.dir\\src\\main.cpp.obj -c D:\\Work\\Projects\\raytracer\\src\\main.cpp",
+  "file": "D:/Work/Projects/raytracer/src/main.cpp",
+  "output": "CMakeFiles/raytracer.dir/src/main.cpp.obj"
+}
+]
