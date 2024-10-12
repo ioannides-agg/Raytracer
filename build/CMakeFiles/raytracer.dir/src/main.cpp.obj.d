@@ -1,5 +1,6 @@
 CMakeFiles/raytracer.dir/src/main.cpp.obj: \
  D:\Work\Projects\raytracer\src\main.cpp \
+ D:\Work\Projects\raytracer\src\config.h \
  C:/msys64/ucrt64/include/c++/14.1.0/iostream \
  C:/msys64/ucrt64/include/c++/14.1.0/bits/requires_hosted.h \
  C:/msys64/ucrt64/include/c++/14.1.0/x86_64-w64-mingw32/bits/c++config.h \
@@ -135,4 +136,22 @@ CMakeFiles/raytracer.dir/src/main.cpp.obj: \
  C:/msys64/ucrt64/include/c++/14.1.0/bits/basic_ios.tcc \
  C:/msys64/ucrt64/include/c++/14.1.0/bits/ostream.tcc \
  C:/msys64/ucrt64/include/c++/14.1.0/istream \
- C:/msys64/ucrt64/include/c++/14.1.0/bits/istream.tcc
+ C:/msys64/ucrt64/include/c++/14.1.0/bits/istream.tcc \
+ D:\Work\Projects\raytracer\src\includes/vec3.h \
+ C:/msys64/ucrt64/include/c++/14.1.0/cmath \
+ C:/msys64/ucrt64/include/math.h \
+ C:/msys64/ucrt64/include/c++/14.1.0/bits/specfun.h \
+ C:/msys64/ucrt64/include/c++/14.1.0/limits \
+ C:/msys64/ucrt64/include/c++/14.1.0/tr1/gamma.tcc \
+ C:/msys64/ucrt64/include/c++/14.1.0/tr1/special_function_util.h \
+ C:/msys64/ucrt64/include/c++/14.1.0/tr1/bessel_function.tcc \
+ C:/msys64/ucrt64/include/c++/14.1.0/tr1/beta_function.tcc \
+ C:/msys64/ucrt64/include/c++/14.1.0/tr1/ell_integral.tcc \
+ C:/msys64/ucrt64/include/c++/14.1.0/tr1/exp_integral.tcc \
+ C:/msys64/ucrt64/include/c++/14.1.0/tr1/hypergeometric.tcc \
+ C:/msys64/ucrt64/include/c++/14.1.0/tr1/legendre_function.tcc \
+ C:/msys64/ucrt64/include/c++/14.1.0/tr1/modified_bessel_func.tcc \
+ C:/msys64/ucrt64/include/c++/14.1.0/tr1/poly_hermite.tcc \
+ C:/msys64/ucrt64/include/c++/14.1.0/tr1/poly_laguerre.tcc \
+ C:/msys64/ucrt64/include/c++/14.1.0/tr1/riemann_zeta.tcc \
+ D:\Work\Projects\raytracer\src\includes/color.h

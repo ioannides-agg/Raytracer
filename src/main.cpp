@@ -1,4 +1,4 @@
-#include <iostream>
+#include "config.h"
 
 int main() {
     int width = 256;
@@ -9,18 +9,10 @@ int main() {
     for (int i = 0; i < height; i++) {
         std::clog << "\rScanlines remaining: " << (height - i) << " " << std::flush;
         for (int j = 0; j < width; j++) {
-            double r = double(j) / (width-1);
-            double g = double(i) / (height-1);
-            double b = 0.0;
-
-            int R = int(256 * r);
-            int G = int(256 * g);
-            int B = int(256 * b);
-
-            std::cout << R << ' ' << G << ' ' << B << "\n";
+            color pixel_color = color(double(j)/(width-1), double(i)/(height-1), 0);
+            write_color(std::cout, pixel_color);
         }
     }
     
-
     return 0;
 }
