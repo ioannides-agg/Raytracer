@@ -10,9 +10,9 @@ void write_color(std::ostream& out, const color& pixel_color) {
     double g = pixel_color.y();
     double b = pixel_color.z();
 
-    int R = int(255 * r);
-    int G = int(255 * g);
-    int B = int(255 * b);
+    int R = int(255.999 * r);
+    int G = int(255.999 * g);
+    int B = int(255.999 * b);
 
     out << R << " " << G << " " << B << "\n";
 }

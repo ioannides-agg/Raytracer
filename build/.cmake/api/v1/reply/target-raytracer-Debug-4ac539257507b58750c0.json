@@ -2,10 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "raytracer.exe"
-		},
-		{
-			"path" : "raytracer.pdb"
+			"path" : "raytracer"
 		}
 	],
 	"backtrace" : 1,
@@ -38,7 +35,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g"
+					"fragment" : "-g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk"
 				}
 			],
 			"language" : "CXX",
@@ -60,16 +57,12 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
-			},
-			{
-				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
-				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
 	"name" : "raytracer",
-	"nameOnDisk" : "raytracer.exe",
+	"nameOnDisk" : "raytracer",
 	"paths" : 
 	{
 		"build" : ".",

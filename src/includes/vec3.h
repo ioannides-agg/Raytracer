@@ -53,6 +53,8 @@ class vec3 {
     }
 };
 
+using point3 = vec3;
+
 inline std::ostream& operator<<(std::ostream& out, const vec3& v) {
     return out << v.vals[0] << ' ' << v.vals[1] << ' ' << v.vals[2];
 }
