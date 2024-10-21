@@ -1,6 +1,6 @@
 #include "config.h"
 
-bool hit_sphere(const point3& center, double radius, const ray& r) {
+double hit_sphere(const point3& center, double radius, const ray& r) {
 
     //we calculate how many solutions t exist for the equation:
     //(C-P)*(C-P) = r^2 where P(t) the function describing a ray with Q+td 
@@ -8,19 +8,35 @@ bool hit_sphere(const point3& center, double radius, const ray& r) {
     //so we solve for (C-P(t))*(C-P(t)) = r^2 <=>
     //... <=> t^2 *d*d - 2t*d*(C-Q) + (C-Q)*(C-Q) - r^2 = 0
 
-    vec3 oc = center - r.origin();
+    /*vec3 oc = center - r.origin();
     double a = dot(r.direction(), r.direction());
     double b = -2.0 * dot(r.direction(), oc);
-    double c = dot(oc, oc) - radius*radius;
+    double c = dot(oc, oc) - radius*radius;*/
 
-    double discriminant = b*b - 4*a*c;
-    return discriminant >= 0;
+    //next we shall simplify the expression, with b = -2h (where h = dot(r.direction(), oc))
+
+    vec3 oc = center - r.origin();
+    double a = r.direction().length_squared();
+    double h = dot(r.direction(), oc);
+    double c = oc.length_squared() -  radius*radius;
+
+    double discriminant = h*h - a*c;
+    if (discriminant < 0) {
+        return -1.0;
+    } else {
+        return (h - std::sqrt(discriminant)) / a;
+    }
+    
+    //return discriminant < 0? -1.0 : (-b - std::sqrt(discriminant)) / (2.0*a);
 }
 
 color ray_color(const ray& r) {
     //if ray passes through the sphere with r = 0.5 draw the sphere
-    if(hit_sphere(point3(0,0,-1), 0.5, r)) {
-        return color(1,0,0);
+    double d = hit_sphere(point3(0,0,-1), 0.5, r);
+
+    if (d > 0) {
+        vec3 normal = unit_vector(r.at(d) - vec3(0,0,-1));
+        return 0.5*color(normal.x() + 1, normal.y() + 1, normal.z() + 1);
     }
 
     vec3 unit_ray_direction = unit_vector(r.direction());
