@@ -1,5 +1,7 @@
-#pragma once
+#ifndef CONFIG_H
+#define CONFIG_H
+
 #include <iostream>
-#include "includes/vec3.h"
-#include "includes/color.h"
-#include "includes/ray.h"
+#include <vector>
+
+#endif

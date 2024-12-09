@@ -73,15 +73,15 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: CMakeFiles/raytracer.dir/flags.make
 CMakeFiles/raytracer.dir/src/main.cpp.o: /Users/aggelosioannidhs/Desktop/Work/Personal/Raytracer/Raytracer/src/main.cpp
 CMakeFiles/raytracer.dir/src/main.cpp.o: CMakeFiles/raytracer.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/aggelosioannidhs/Desktop/Work/Personal/Raytracer/Raytracer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/raytracer.dir/src/main.cpp.o"
-	/opt/homebrew/bin/aarch64-apple-darwin23-g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/raytracer.dir/src/main.cpp.o -MF CMakeFiles/raytracer.dir/src/main.cpp.o.d -o CMakeFiles/raytracer.dir/src/main.cpp.o -c /Users/aggelosioannidhs/Desktop/Work/Personal/Raytracer/Raytracer/src/main.cpp
+	/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/raytracer.dir/src/main.cpp.o -MF CMakeFiles/raytracer.dir/src/main.cpp.o.d -o CMakeFiles/raytracer.dir/src/main.cpp.o -c /Users/aggelosioannidhs/Desktop/Work/Personal/Raytracer/Raytracer/src/main.cpp
 
 CMakeFiles/raytracer.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/raytracer.dir/src/main.cpp.i"
-	/opt/homebrew/bin/aarch64-apple-darwin23-g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/aggelosioannidhs/Desktop/Work/Personal/Raytracer/Raytracer/src/main.cpp > CMakeFiles/raytracer.dir/src/main.cpp.i
+	/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/aggelosioannidhs/Desktop/Work/Personal/Raytracer/Raytracer/src/main.cpp > CMakeFiles/raytracer.dir/src/main.cpp.i
 
 CMakeFiles/raytracer.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/raytracer.dir/src/main.cpp.s"
-	/opt/homebrew/bin/aarch64-apple-darwin23-g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aggelosioannidhs/Desktop/Work/Personal/Raytracer/Raytracer/src/main.cpp -o CMakeFiles/raytracer.dir/src/main.cpp.s
+	/opt/homebrew/bin/aarch64-apple-darwin24-g++-14 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/aggelosioannidhs/Desktop/Work/Personal/Raytracer/Raytracer/src/main.cpp -o CMakeFiles/raytracer.dir/src/main.cpp.s
 
 # Object files for target raytracer
 raytracer_OBJECTS = \
