@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/Users/aggelosioannidhs/Desktop/Work/Personal/Raytracer/Raytracer/build",
-  "command": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14   -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -o CMakeFiles/raytracer.dir/src/main.cpp.o -c /Users/aggelosioannidhs/Desktop/Work/Personal/Raytracer/Raytracer/src/main.cpp",
-  "file": "/Users/aggelosioannidhs/Desktop/Work/Personal/Raytracer/Raytracer/src/main.cpp",
-  "output": "CMakeFiles/raytracer.dir/src/main.cpp.o"
-}
-]

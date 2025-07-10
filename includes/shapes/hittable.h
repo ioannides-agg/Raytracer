@@ -3,6 +3,7 @@
 
 #include "../ray.h"
 #include "../math.h"
+#include "../interval.h"
 
 struct hit_record {
     point3f point;
@@ -20,7 +21,7 @@ struct hit_record {
 class hittable_object {
     public:
       virtual ~hittable_object() = default;
-      virtual bool hit(const Ray& r, hit_record& hit_data, float min, float max) const = 0;
+      virtual bool hit(const Ray& r, hit_record& hit_data, interval bounds) const = 0;
 };
 
 #endif /* HITTABLE_H */

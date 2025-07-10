@@ -1,10 +1,4 @@
 #include "config.h"
-#include "../includes/math.h"
-#include "../includes/ray.h"
-#include "../includes/shapes/sphere.h"
-#include "../includes/shapes/hittable_list.h"
-#include "../includes/shapes/hittable.h"
-#include "../includes/PPM_image_writer.h"
 
 using color = vec3f;
 color white = color(1.0f, 1.0f, 1.0f);
@@ -13,7 +7,7 @@ color red = color(1.0f, 0.0f, 0.0f);
 
 color color_ray(Ray& r, const hittable_object& world) {
     hit_record hit;
-    if(world.hit(r, hit, 0, INFINITY)) {
+    if(world.hit(r, hit, interval(0, infinity))) {
         vec3f color = (hit.normal + white);
         return 0.5f * color;
     }

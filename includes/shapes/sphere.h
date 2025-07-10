@@ -14,7 +14,7 @@ class Sphere : public hittable_object {
 
       //in order for the ray to draw the sphere we will need every point on the 
       //surface of the sphere.
-      bool hit(const Ray& r, hit_record& hit_data, float min, float max) const override {
+      bool hit(const Ray& r, hit_record& hit_data, interval bounds) const override {
         vec3f cq = center - r.origin();
         float a = r.direction().length_squared();
         float h = dot(r.direction(), cq);
@@ -26,9 +26,9 @@ class Sphere : public hittable_object {
         float sqrtDiscriminant = std::sqrt(discriminant);
         float root = (h - sqrtDiscriminant) / a;
 
-        if (root <= min || root >= max){
+        if (!bounds.surrounds(root)){
           root = (h + sqrtDiscriminant) / a;
-          if (root <= min || root >= max) {
+          if (!bounds.surrounds(root)) {
             return false;
           }
         }
