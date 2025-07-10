@@ -19,7 +19,8 @@ public:
   const float fov = rad(90);
   const int width = 1024;
   const int height = 768;
-  int samples_per_pixel = 100;
+  const int samples_per_pixel = 100;
+  const int max_depth = 50;
 
   void render(const hittable_object &world) {
     for (size_t i = 0; i < height; i++) {
@@ -36,13 +37,14 @@ public:
           point3f pixel_sample(x, y, 0);
           vec3f direction = vec3f(pixel_sample[0], pixel_sample[1], -1.0f);
           Ray ray = Ray(camera_pos, direction);
-          pixel_color += color_ray(ray, world);
+          pixel_color += color_ray(ray, world, max_depth);
         }
 
         interval in(0.000f, 0.999f);
         pixel_color = pixel_color / samples_per_pixel;
-        color pixel(in.clamp(pixel_color[0]), in.clamp(pixel_color[1]),
-                    in.clamp(pixel_color[2]));
+        color pixel(in.clamp(linear_to_gamma(pixel_color[0])),
+                    in.clamp(linear_to_gamma(pixel_color[1])),
+                    in.clamp(linear_to_gamma(pixel_color[2])));
 
         framebuffer.push_back(pixel);
       }
@@ -55,17 +57,30 @@ private:
   const float aspect_ratio = float(width) / float(height);
   std::vector<color> framebuffer;
 
-  color color_ray(const Ray &r, const hittable_object &world) {
+  color color_ray(const Ray &r, const hittable_object &world, int depth) {
+    if (depth <= 0) {
+      return color(0.0f, 0.0f, 0.0f); // terminate recursion
+    }
+
     hit_record hit;
-    if (world.hit(r, hit, interval(0, infinity))) {
-      vec3f color = (hit.normal + white);
-      return 0.5f * color;
+    if (world.hit(r, hit, interval(0.001f, infinity))) {
+      vec3f direction =
+          hit.normal + random_unit_vector(); // Lambertian Reflection
+      vec3f color = color_ray(Ray(hit.point, direction), world, depth - 1);
+      return 0.5f * color; // diffuse reflection
     }
 
     // background sky gradient
     vec3f dir = r.direction();
     float a = 0.5f * (dir.normalized()[1] + 1.0f);
     return (1.0f - a) * white + a * blue;
+  }
+
+  double linear_to_gamma(double linear_component) {
+    if (linear_component > 0)
+      return std::sqrt(linear_component);
+
+    return 0;
   }
 };
 #endif /*CAMERA_H*/
