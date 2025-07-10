@@ -27,7 +27,6 @@ public:
       for (size_t j = 0; j < width; j++) {
         color pixel_color(0.0f, 0.0f, 0.0f);
         for (int sample = 0; sample < samples_per_pixel; sample++) {
-
           float u = (j + random_float() - 0.5f) / float(width);
           float v = (i + random_float() - 0.5f) / float(height);
 
@@ -67,10 +66,6 @@ private:
     vec3f dir = r.direction();
     float a = 0.5f * (dir.normalized()[1] + 1.0f);
     return (1.0f - a) * white + a * blue;
-  }
-
-  vec3f sample_square() const {
-    return vec3f(random_float() - 0.5, random_float() - 0.5, 0);
   }
 };
 #endif /*CAMERA_H*/
