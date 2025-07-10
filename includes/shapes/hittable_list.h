@@ -1,38 +1,36 @@
 #ifndef HITTABLE_LIST_H
-#define HITTBALE_LIST_H
+#define HITTABLE_LIST_H
 
+#include "hittable.h"
 #include <memory>
 #include <vector>
-#include "hittable.h"
 
 class hittable_list : public hittable_object {
-    public:
-      std::vector<std::shared_ptr<hittable_object>> objects;
+public:
+  std::vector<std::shared_ptr<hittable_object>> objects;
 
-      hittable_list() {}
-      hittable_list(std::shared_ptr<hittable_object> obj) { add(obj); }
+  hittable_list() {}
+  hittable_list(std::shared_ptr<hittable_object> obj) { add(obj); }
 
-      void clear() { objects.clear(); }
+  void clear() { objects.clear(); }
 
-      void add(std::shared_ptr<hittable_object> obj) { objects.push_back(obj); }
+  void add(std::shared_ptr<hittable_object> obj) { objects.push_back(obj); }
 
-      bool hit(const Ray& r, hit_record& hit_data, interval bounds) const override {
-          hit_record temp_hit;
-          bool hit_anything;
-          auto closest_object = bounds.max;
+  bool hit(const Ray &r, hit_record &hit_data, interval bounds) const override {
+    hit_record temp_hit;
+    bool hit_anything;
+    auto closest_object = bounds.max;
 
-          for(const auto& obj : objects) {
-              if (obj -> hit(r, temp_hit, interval(bounds.min, closest_object))) {
-                  hit_anything = true;
-                  closest_object = temp_hit.t;
-                  hit_data = temp_hit;
-
-              }
-          }
-
-          return hit_anything;
+    for (const auto &obj : objects) {
+      if (obj->hit(r, temp_hit, interval(bounds.min, closest_object))) {
+        hit_anything = true;
+        closest_object = temp_hit.t;
+        hit_data = temp_hit;
       }
+    }
 
+    return hit_anything;
+  }
 };
 
 #endif /*HITTABLE_LIST_H*/

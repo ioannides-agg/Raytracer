@@ -5,4 +5,4 @@ add_executable(raytracer
     src/main.cpp
 )
 
-set_property(TARGET raytracer PROPERTY CXX_STANDARD 20)
+set_property(TARGET raytracer PROPERTY CXX_STANDARD 23)

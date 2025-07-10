@@ -6,41 +6,43 @@
 #include "hittable.h"
 
 class Sphere : public hittable_object {
-    private:
-      point3f center;
-      float radius;
-    public:
-      Sphere(const point3f& c, const float& r) : center(c), radius(std::fmax(0,r)) {}
+private:
+  point3f center;
+  float radius;
 
-      //in order for the ray to draw the sphere we will need every point on the 
-      //surface of the sphere.
-      bool hit(const Ray& r, hit_record& hit_data, interval bounds) const override {
-        vec3f cq = center - r.origin();
-        float a = r.direction().length_squared();
-        float h = dot(r.direction(), cq);
-        float c = cq.length_squared() - radius * radius;
+public:
+  Sphere(const point3f &c, const float &r)
+      : center(c), radius(std::fmax(0, r)) {}
 
-        float discriminant = h*h - a*c;
-        if(discriminant < 0) return false;
+  // in order for the ray to draw the sphere we will need every point on the
+  // surface of the sphere.
+  bool hit(const Ray &r, hit_record &hit_data, interval bounds) const override {
+    vec3f cq = center - r.origin();
+    float a = r.direction().length_squared();
+    float h = dot(r.direction(), cq);
+    float c = cq.length_squared() - radius * radius;
 
-        float sqrtDiscriminant = std::sqrt(discriminant);
-        float root = (h - sqrtDiscriminant) / a;
+    float discriminant = h * h - a * c;
+    if (discriminant < 0)
+      return false;
 
-        if (!bounds.surrounds(root)){
-          root = (h + sqrtDiscriminant) / a;
-          if (!bounds.surrounds(root)) {
-            return false;
-          }
-        }
+    float sqrtDiscriminant = std::sqrt(discriminant);
+    float root = (h - sqrtDiscriminant) / a;
 
-        hit_data.t = root;
-        hit_data.point = r.at(root);
-        vec3f normal = (hit_data.point - center) / radius;
-        hit_data.set_normal(r, normal);
-
-        return true;
+    if (!bounds.surrounds(root)) {
+      root = (h + sqrtDiscriminant) / a;
+      if (!bounds.surrounds(root)) {
+        return false;
       }
+    }
 
+    hit_data.t = root;
+    hit_data.point = r.at(root);
+    vec3f normal = (hit_data.point - center) / radius;
+    hit_data.set_normal(r, normal);
+
+    return true;
+  }
 };
 
 #endif /*SPHERE_H*/
