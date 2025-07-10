@@ -1,4 +1,4 @@
 .vscode/
 build/
 /.DS_Store/
-images/render.ppm
+render.ppm

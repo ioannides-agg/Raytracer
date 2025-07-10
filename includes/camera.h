@@ -1,0 +1,76 @@
+#ifndef CAMERA_H
+#define CAMERA_H
+
+#include "../includes/PPM_image_writer.h"
+#include "../includes/interval.h"
+#include "math.h"
+#include "ray.h"
+#include "shapes/hittable.h"
+#include <iostream>
+
+using color = vec3f;
+color white = color(1.0f, 1.0f, 1.0f);
+color blue = color(0.5f, 0.7f, 1.0f);
+color red = color(1.0f, 0.0f, 0.0f);
+
+class Camera {
+public:
+  const point3f camera_pos = point3f(0.0f, 0.0f, 0.0f);
+  const float fov = rad(90);
+  const int width = 1024;
+  const int height = 768;
+  int samples_per_pixel = 100;
+
+  void render(const hittable_object &world) {
+    for (size_t i = 0; i < height; i++) {
+      std::clog << "\rLines Remaining: " << height - i << " " << std::flush;
+      for (size_t j = 0; j < width; j++) {
+        color pixel_color(0.0f, 0.0f, 0.0f);
+        for (int sample = 0; sample < samples_per_pixel; sample++) {
+
+          float u = (j + random_float() - 0.5f) / float(width);
+          float v = (i + random_float() - 0.5f) / float(height);
+
+          float x = (2 * u - 1) * tan(fov / 2.0f) * aspect_ratio;
+          float y = -(2 * v - 1) * tan(fov / 2.0f);
+
+          point3f pixel_sample(x, y, 0);
+          vec3f direction = vec3f(pixel_sample[0], pixel_sample[1], -1.0f);
+          Ray ray = Ray(camera_pos, direction);
+          pixel_color += color_ray(ray, world);
+        }
+
+        interval in(0.000f, 0.999f);
+        pixel_color = pixel_color / samples_per_pixel;
+        color pixel(in.clamp(pixel_color[0]), in.clamp(pixel_color[1]),
+                    in.clamp(pixel_color[2]));
+
+        framebuffer.push_back(pixel);
+      }
+    }
+
+    PPM_image_writer("render.ppm", width, height, framebuffer);
+  }
+
+private:
+  const float aspect_ratio = float(width) / float(height);
+  std::vector<color> framebuffer;
+
+  color color_ray(const Ray &r, const hittable_object &world) {
+    hit_record hit;
+    if (world.hit(r, hit, interval(0, infinity))) {
+      vec3f color = (hit.normal + white);
+      return 0.5f * color;
+    }
+
+    // background sky gradient
+    vec3f dir = r.direction();
+    float a = 0.5f * (dir.normalized()[1] + 1.0f);
+    return (1.0f - a) * white + a * blue;
+  }
+
+  vec3f sample_square() const {
+    return vec3f(random_float() - 0.5, random_float() - 0.5, 0);
+  }
+};
+#endif /*CAMERA_H*/

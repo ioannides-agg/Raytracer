@@ -10,7 +10,7 @@ void PPM_image_writer(std::string path, int width, int height,
   ofs.open(path);
   ofs << "P3\n" << width << " " << height << "\n255\n";
   for (size_t i = 0; i < height * width; i++) {
-    framebuffer[i] *= 255;
+    framebuffer[i] *= 256;
     ofs << framebuffer[i] << "\n";
   }
 
