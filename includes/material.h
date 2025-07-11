@@ -41,17 +41,21 @@ public:
 class Metal : public Material {
 private:
   color albedo;
+  float fuzziness; // Fuzziness factor for roughness
 
 public:
-  Metal(const color &a) : albedo(a) {}
+  Metal(const color &a, float f) : albedo(a), fuzziness(f < 1.0f ? f : 1) {}
 
   bool scatter(const Ray &r, const hit_record &hit, color &attentuation,
                Ray &scattered) const override {
     vec3f reflected =
         r.direction() - 2 * dot(r.direction(), hit.normal) * hit.normal;
-    scattered = Ray(hit.point, reflected);
+
+    vec3f fuzzed_reflection =
+        reflected.normalized() + fuzziness * random_unit_vector();
+    scattered = Ray(hit.point, fuzzed_reflection);
     attentuation = albedo;
-    return true;
+    return dot(scattered.direction(), hit.normal) > 0;
   }
 };
 #endif /* MATERIAL_H */
