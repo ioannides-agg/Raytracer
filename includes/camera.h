@@ -8,7 +8,6 @@
 #include "shapes/hittable.h"
 #include <iostream>
 
-using color = vec3f;
 color white = color(1.0f, 1.0f, 1.0f);
 color blue = color(0.5f, 0.7f, 1.0f);
 color red = color(1.0f, 0.0f, 0.0f);
@@ -19,7 +18,7 @@ public:
   const float fov = rad(90);
   const int width = 1024;
   const int height = 768;
-  const int samples_per_pixel = 100;
+  const int samples_per_pixel = 10;
   const int max_depth = 50;
 
   void render(const hittable_object &world) {

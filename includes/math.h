@@ -4,6 +4,8 @@
 #include "vector.h"
 #include <cstdlib>
 
+using color = vec3f;
+
 const double infinity = std::numeric_limits<float>::infinity();
 const double pi = 3.1415926535897932385;
 
@@ -29,12 +31,15 @@ vec3f random_vector(float min, float max) {
 }
 
 inline vec3f random_unit_vector() {
-  while (true) {
-    auto p = random_vector(-1, 1);
-    auto lensq = p.length_squared();
-    if (1e-160 < lensq && lensq <= 1)
-      return p / sqrt(lensq);
-  }
+  // Generates a random unit vector using spherical coordinates
+  float phi = random_float(0, 2 * pi);
+  float theta = acos(random_float(-1, 1));
+
+  float x = sin(theta) * cos(phi);
+  float y = sin(theta) * sin(phi);
+  float z = cos(theta);
+
+  return vec3f(x, y, z);
 }
 
 inline vec3f random_on_hemisphere(const vec3f &normal) {
