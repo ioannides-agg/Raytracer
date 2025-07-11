@@ -12,3 +12,14 @@ To build the project, follow these steps:
 2. Run the following command to configure the build:
    ```sh
    cmake -S . -B build
+
+3. Run the following command:
+   ```sh
+   make --directory /build/
+
+4. After that you can run the built program:
+   ```sh
+   ./build/raytracer
+
+you will find the render.ppm produced inside the project directory!
+   
