@@ -1,6 +1,7 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
+#include "../material.h"
 #include "../math.h"
 #include "../ray.h"
 #include "hittable.h"
@@ -9,10 +10,11 @@ class Sphere : public hittable_object {
 private:
   point3f center;
   float radius;
+  std::shared_ptr<Material> mat_ptr; // Pointer to the material of the sphere
 
 public:
-  Sphere(const point3f &c, const float &r)
-      : center(c), radius(std::fmax(0, r)) {}
+  Sphere(const point3f &c, const float &r, std::shared_ptr<Material> material)
+      : center(c), radius(std::fmax(0, r)), mat_ptr(material) {}
 
   // in order for the ray to draw the sphere we will need every point on the
   // surface of the sphere.
@@ -40,6 +42,7 @@ public:
     hit_data.point = r.at(root);
     vec3f normal = (hit_data.point - center) / radius;
     hit_data.set_normal(r, normal);
+    hit_data.mat_ptr = mat_ptr;
 
     return true;
   }

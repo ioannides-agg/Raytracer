@@ -30,7 +30,7 @@ vec3f random_vector(float min, float max) {
                random_float(min, max));
 }
 
-inline vec3f random_unit_vector() {
+vec3f random_unit_vector() {
   // Generates a random unit vector using spherical coordinates
   float phi = random_float(0, 2 * pi);
   float theta = acos(random_float(-1, 1));
@@ -42,12 +42,18 @@ inline vec3f random_unit_vector() {
   return vec3f(x, y, z);
 }
 
-inline vec3f random_on_hemisphere(const vec3f &normal) {
+vec3f random_on_hemisphere(const vec3f &normal) {
   vec3f on_unit_sphere = random_unit_vector();
   if (dot(on_unit_sphere, normal) > 0.0) // In the same hemisphere as the normal
     return on_unit_sphere;
   else
     return -on_unit_sphere;
+}
+
+bool vector_near_zero(const vec3f &v) {
+  float threshold = 1e-8;
+  return (fabs(v[0]) < threshold && fabs(v[1]) < threshold &&
+          fabs(v[2]) < threshold);
 }
 
 #endif /*MATH_H*/

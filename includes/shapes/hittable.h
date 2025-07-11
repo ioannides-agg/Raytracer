@@ -5,11 +5,15 @@
 #include "../math.h"
 #include "../ray.h"
 
-struct hit_record {
+class Material; // Forward declaration to avoid circular dependency
+
+class hit_record {
+public:
   point3f point;
   vec3f normal;
   double t;
   bool front;
+  std::shared_ptr<Material> mat_ptr;
 
   void set_normal(const Ray &r, const vec3f &outward_normal) {
     front = dot(r.direction(), outward_normal) < 0;

@@ -3,6 +3,7 @@
 
 #include "../includes/PPM_image_writer.h"
 #include "../includes/interval.h"
+#include "material.h"
 #include "math.h"
 #include "ray.h"
 #include "shapes/hittable.h"
@@ -18,7 +19,7 @@ public:
   const float fov = rad(90);
   const int width = 1024;
   const int height = 768;
-  const int samples_per_pixel = 10;
+  const int samples_per_pixel = 100;
   const int max_depth = 50;
 
   void render(const hittable_object &world) {
@@ -63,10 +64,12 @@ private:
 
     hit_record hit;
     if (world.hit(r, hit, interval(0.001f, infinity))) {
-      vec3f direction =
-          hit.normal + random_unit_vector(); // Lambertian Reflection
-      vec3f color = color_ray(Ray(hit.point, direction), world, depth - 1);
-      return 0.5f * color; // diffuse reflection
+      Ray scattered;
+      color attentuation;
+      if (hit.mat_ptr->scatter(r, hit, attentuation, scattered)) {
+        return attentuation * color_ray(scattered, world, depth - 1);
+      }
+      return color(0.0f, 0.0f, 0.0f); // no scatter, return black
     }
 
     // background sky gradient

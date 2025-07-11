@@ -11,6 +11,8 @@ private:
   vec3f dir;
 
 public:
+  Ray() {}
+
   Ray(const point3f origin, const vec3f direction)
       : orig(origin), dir(direction) {}
 

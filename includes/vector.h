@@ -203,11 +203,11 @@ std::ostream &operator<<(std::ostream &out, const vec<DIM, T> &v) {
   return out;
 }
 
-template <typename T> vec2<T> operator*(auto t, vec2<T> &v) { return v * t; }
+template <typename T> vec2<T> operator*(T t, const vec2<T> &v) { return v * t; }
 
-template <typename T> vec3<T> operator*(auto t, vec3<T> &v) { return v * t; }
+template <typename T> vec3<T> operator*(T t, const vec3<T> &v) { return v * t; }
 
-template <typename T> vec4<T> operator*(auto t, vec4<T> &v) { return v * t; }
+template <typename T> vec4<T> operator*(T t, const vec4<T> &v) { return v * t; }
 
 template <size_t DIM, typename T>
 float dot(const vec<DIM, T> &v, const vec<DIM, T> &u) {
