@@ -15,28 +15,39 @@ color red = color(1.0f, 0.0f, 0.0f);
 
 class Camera {
 public:
-  const point3f camera_pos = point3f(0.0f, 0.0f, 0.0f);
-  const float fov = rad(90);
+  point3f camera_pos = point3f(0.0f, 3.0f, 0.0f);
+  point3f look_at = point3f(0.0f, 0.0f, -1.0f);
+  float fov = rad(90);
   const int width = 1024;
   const int height = 768;
-  const int samples_per_pixel = 100;
+  const int samples_per_pixel = 10;
   const int max_depth = 50;
 
   void render(const hittable_object &world) {
+    vec3f w = (camera_pos - look_at).normalized();
+    vec3f u = cross(vec3f(0.0f, 1.0f, 0.0f), w).normalized();
+    vec3f v = cross(w, u).normalized();
+
+    float viewport_height =
+        2.0f * tan(fov / 2.0f) *
+        -1.0f; // negative because the camera looks towards negative z
+    float viewport_width = 2.0f * tan(fov / 2.0f) * aspect_ratio;
+
+    point3f lower_left_corner = camera_pos - (viewport_width / 2.0f) * u -
+                                (viewport_height / 2.0f) * v - w;
+
     for (size_t i = 0; i < height; i++) {
       std::clog << "\rLines Remaining: " << height - i << " " << std::flush;
       for (size_t j = 0; j < width; j++) {
         color pixel_color(0.0f, 0.0f, 0.0f);
         for (int sample = 0; sample < samples_per_pixel; sample++) {
-          float u = (j + random_float() - 0.5f) / float(width);
-          float v = (i + random_float() - 0.5f) / float(height);
+          float u_offset = (j + random_float() - 0.5f) / float(width);
+          float v_offset = (i + random_float() - 0.5f) / float(height);
 
-          float x = (2 * u - 1) * tan(fov / 2.0f) * aspect_ratio;
-          float y = -(2 * v - 1) * tan(fov / 2.0f);
+          vec3f direction = lower_left_corner + u_offset * viewport_width * u +
+                            v_offset * viewport_height * v - camera_pos;
 
-          point3f pixel_sample(x, y, 0);
-          vec3f direction = vec3f(pixel_sample[0], pixel_sample[1], -1.0f);
-          Ray ray = Ray(camera_pos, direction);
+          Ray ray = Ray(camera_pos, direction.normalized());
           pixel_color += color_ray(ray, world, max_depth);
         }
 
