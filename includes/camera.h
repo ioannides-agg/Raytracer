@@ -17,11 +17,13 @@ class Camera {
 public:
   point3f camera_pos = point3f(0.0f, 3.0f, 0.0f);
   point3f look_at = point3f(0.0f, 0.0f, -1.0f);
-  float fov = rad(90);
-  const int width = 1024;
-  const int height = 768;
-  const int samples_per_pixel = 10;
-  const int max_depth = 50;
+  float fov = rad(20);
+  int width = 1024;
+  int height = 768;
+  int samples_per_pixel = 10;
+  int max_depth = 50;
+
+  Camera() {}
 
   void render(const hittable_object &world) {
     vec3f w = (camera_pos - look_at).normalized();
