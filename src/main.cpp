@@ -53,7 +53,7 @@ int main() {
   cam.height = 1080;
   cam.width = 1920;
   cam.fov = rad(20);
-  cam.samples_per_pixel = 10;
+  cam.samples_per_pixel = 1;
   cam.camera_pos = point3f(13.0f, 2.0f, 3.0f);
   cam.look_at = point3f(0.0f, 0.0f, 0.0f);
 
