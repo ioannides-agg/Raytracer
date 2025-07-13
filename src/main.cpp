@@ -1,6 +1,7 @@
 #include "config.h"
 
 int main() {
+  auto start = std::chrono::high_resolution_clock::now();
   hittable_list world;
 
   auto ground_material = std::make_shared<Lambertian>(color(0.5f, 0.5f, 0.5f));
@@ -53,9 +54,15 @@ int main() {
   cam.height = 1080;
   cam.width = 1920;
   cam.fov = rad(20);
-  cam.samples_per_pixel = 1;
+  cam.samples_per_pixel = 10;
   cam.camera_pos = point3f(13.0f, 2.0f, 3.0f);
   cam.look_at = point3f(0.0f, 0.0f, 0.0f);
 
   cam.render(world);
+
+  auto end = std::chrono::high_resolution_clock::now();
+
+  std::chrono::duration<double> elapsed = end - start;
+
+  std::cout << "Render time: " << elapsed.count() << " seconds\n";
 }

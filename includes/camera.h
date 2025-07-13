@@ -30,8 +30,7 @@ public:
     float rows_per_thread = height / num_threads;
 
     std::vector<std::thread> threads;
-    std::vector<std::vector<color>> thread_buffers(
-        8, std::vector<color>(width * height));
+    std::vector<std::vector<color>> thread_buffers(8, std::vector<color>());
 
     for (int i = 0; i < num_threads; i++) {
       int start_t = i * rows_per_thread;
@@ -44,6 +43,15 @@ public:
     for (int i = 0; i < num_threads; i++) {
       threads[i].join();
     }
+
+    framebuffer.resize(height * width);
+    for (int t = 0; t < num_threads; t++) {
+      int start_row = t * rows_per_thread;
+      std::copy(thread_buffers[t].begin(), thread_buffers[t].end(),
+                framebuffer.begin() + start_row * width);
+    }
+
+    PPM_image_writer("render.ppm", width, height, framebuffer);
 
     /*vec3f w = (camera_pos - look_at).normalized();
     vec3f u = cross(vec3f(0.0f, 1.0f, 0.0f), w).normalized();
@@ -91,7 +99,9 @@ private:
   std::vector<color> framebuffer;
 
   void render_rows(int start, int end, const hittable_object &world,
-                   std::vector<color> local_buffer) {
+                   std::vector<color> &local_buffer) {
+
+    local_buffer.resize((end - start) * width);
 
     vec3f w = (camera_pos - look_at).normalized();
     vec3f u = cross(vec3f(0.0f, 1.0f, 0.0f), w).normalized();
@@ -126,11 +136,11 @@ private:
                     in.clamp(linear_to_gamma(pixel_color[1])),
                     in.clamp(linear_to_gamma(pixel_color[2])));
 
-        local_buffer.push_back(pixel);
+        local_buffer[(i - start) * width + j] = pixel;
       }
     }
 
-    std::cout << "done\n";
+    std::cout << "completed:" << start << "-" << end << "\n";
   }
 
   color color_ray(const Ray &r, const hittable_object &world, int depth) {

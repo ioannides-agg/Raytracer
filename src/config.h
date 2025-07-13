@@ -5,6 +5,7 @@
 #include "../includes/material.h"
 #include "../includes/shapes/hittable_list.h"
 #include "../includes/shapes/sphere.h"
+#include <chrono>
 #include <iostream>
 #include <vector>
 
