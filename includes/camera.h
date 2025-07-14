@@ -27,6 +27,8 @@ public:
   Camera() {}
 
   void render(const hittable_object &world) {
+    aspect_ratio = float(width) / float(height);
+
     float rows_per_thread = height / num_threads;
 
     std::vector<std::thread> threads;
@@ -55,7 +57,7 @@ public:
   }
 
 private:
-  const float aspect_ratio = float(width) / float(height);
+  float aspect_ratio;
   const int num_threads = 8;
   std::vector<color> framebuffer;
 
