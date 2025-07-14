@@ -26,6 +26,7 @@ public:
   Camera() {}
 
   void render(const hittable_object &world) {
+    aspect_ratio = float(width) / float(height);
     vec3f w = (camera_pos - look_at).normalized();
     vec3f u = cross(vec3f(0.0f, 1.0f, 0.0f), w).normalized();
     vec3f v = cross(w, u).normalized();
@@ -67,7 +68,7 @@ public:
   }
 
 private:
-  const float aspect_ratio = float(width) / float(height);
+  float aspect_ratio;
   std::vector<color> framebuffer;
 
   color color_ray(const Ray &r, const hittable_object &world, int depth) {
